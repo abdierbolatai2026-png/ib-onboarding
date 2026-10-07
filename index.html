@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Вводный инструктаж службы ИБ</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="light dark">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'none'; font-src 'none'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <style>
+    :root {
+      --bg: #e7edf2;
+      --paper: #f7f9fb;
+      --ink: #142033;
+      --muted: #4d5d70;
+      --line: #d3dde6;
+      --navy: #15304c;
+      --navy-2: #1e466c;
+      --steel: #3d5a78;
+      --signal: #9b1d2c;
+      --signal-soft: #f8e8ea;
+      --ok: #1d5c45;
+      --ok-soft: #e5f3ec;
+      --focus: #0b6bcb;
+      --shadow: 0 1px 0 rgba(20, 32, 51, 0.04);
+      --serif: Georgia, "Palatino Linotype", Palatino, "Times New Roman", serif;
+      --sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101820;
+        --paper: #1a2531;
+        --ink: #e7eef5;
+        --muted: #a9b8c7;
+        --line: #2c3c4d;
+        --navy: #8eb4d6;
+        --navy-2: #c5d8ea;
+        --steel: #9bb0c4;
+        --signal: #f0a0a8;
+        --signal-soft: #3a2228;
+        --ok: #8dceb4;
+        --ok-soft: #1c332b;
+        --focus: #79b6ff;
+        --shadow: none;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(21, 48, 76, 0.06), transparent 220px),
+        var(--bg);
+      color: var(--ink);
+      font: 16px/1.55 var(--sans);
+    }
+    a { color: var(--navy-2); }
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+    .skip {
+      position: absolute;
+      left: 12px;
+      top: -40px;
+      background: var(--navy);
+      color: #fff;
+      padding: 8px 12px;
+      z-index: 5;
+    }
+    .skip:focus { top: 12px; }
+    .wrap { width: min(1080px, calc(100% - 32px)); margin: 0 auto; }
+    header.top {
+      background: var(--navy);
+      color: #f4f7fb;
+      border-bottom: 4px solid var(--signal);
+    }
+    @media (prefers-color-scheme: dark) {
+      header.top { background: #0c1620; color: var(--ink); }
+    }
+    .brand {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 22px 0 18px;
+    }
+    .mark {
+      width: 46px;
+      height: 52px;
+      flex: none;
+    }
+    .kicker {
+      margin: 0;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 12px;
+      opacity: 0.82;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.15;
+      margin: 4px 0 0;
+    }
+    .lede { margin: 8px 0 0; max-width: 62ch; color: inherit; opacity: 0.9; }
+    .times {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 0 18px;
+    }
+    .times a {
+      color: inherit;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 13px;
+    }
+    .times a:hover { background: rgba(255,255,255,0.08); }
+    main { padding: 28px 0 48px; }
+    section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: 10px;
+      padding: 22px 22px 20px;
+      margin: 0 0 18px;
+    }
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      border-bottom: 1px solid var(--line);
+      margin: 0 0 16px;
+      padding-bottom: 10px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: 26px;
+      line-height: 1.2;
+      margin: 0;
+    }
+    .mins {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    h3 { font-size: 17px; margin: 0 0 6px; }
+    p { margin: 0 0 10px; }
+    .grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: transparent;
+    }
+    .panel ul, .stage ul { margin: 6px 0 0; padding-left: 18px; }
+    .panel li, .stage li { margin: 3px 0; }
+    .btn {
+      display: inline-block;
+      margin-top: 14px;
+      background: var(--navy);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    @media (prefers-color-scheme: dark) {
+      .btn { background: #24527a; color: #f4f7fb; }
+    }
+    .note { color: var(--muted); font-size: 14px; margin: 8px 0 0; }
+    .stages {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .stage {
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--navy);
+      border-radius: 8px;
+      padding: 12px;
+      min-width: 0;
+    }
+    .stage.report {
+      border-top-color: var(--signal);
+      background: var(--signal-soft);
+    }
+    .num {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .num { color: #0f1720; }
+    }
+    .stage.report .num { background: var(--signal); color: #fff; }
+    .stage h3 { font-family: var(--serif); font-size: 18px; }
+    .when {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: var(--steel);
+      margin-bottom: 6px;
+    }
+    .alert {
+      margin-top: 14px;
+      border: 1px solid var(--signal);
+      background: var(--signal-soft);
+      border-left: 6px solid var(--signal);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .alert strong { color: var(--signal); }
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+    #count { font-variant-numeric: tabular-nums; font-weight: 700; }
+    .bar {
+      height: 10px;
+      background: var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 8px 0 14px;
+    }
+    .bar > span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--navy);
+    }
+    .checks { list-style: none; margin: 0; padding: 0; }
+    .checks li {
+      border-top: 1px solid var(--line);
+    }
+    .checks label {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      padding: 11px 2px;
+      cursor: pointer;
+    }
+    .checks input { width: 18px; height: 18px; margin-top: 3px; }
+    .checks small { display: block; color: var(--muted); }
+    .done {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--ok-soft);
+      color: var(--ok);
+      font-weight: 600;
+    }
+    .done.show { display: block; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 640px; }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+      padding: 10px 12px 10px 0;
+    }
+    th { font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+    code, .ph {
+      font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 0.92em;
+    }
+    footer {
+      color: var(--muted);
+      font-size: 13px;
+      padding-bottom: 28px;
+    }
+    @media (max-width: 860px) {
+      .grid3 { grid-template-columns: 1fr; }
+      .stages { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; color: #000; }
+      header.top, .btn, .times { background: #fff; color: #000; }
+      section, .stage, .panel { break-inside: avoid; box-shadow: none; }
+      a { text-decoration: underline; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content">К содержанию</a>
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 46 52" aria-hidden="true">
+          <path fill="currentColor" d="M23 2 42 10v16c0 12.5-8.1 20.6-19 24C12.1 46.6 4 38.5 4 26V10L23 2z"/>
+          <path fill="#9b1d2c" d="M23 12v28c6.4-2.2 11-7.4 11-14.2V16.2L23 12z"/>
+        </svg>
+        <div>
+          <p class="kicker">Служба информационной безопасности</p>
+          <h1>Вводный инструктаж</h1>
+          <p class="lede">Ключевые регламенты, алгоритм реагирования и каналы связи. Рассчитан на 15 минут в первый рабочий день.</p>
+        </div>
+      </div>
+      <nav class="times" aria-label="Блоки инструктажа">
+        <a href="#brief">Цели и ответственность · 3 мин</a>
+        <a href="#response">Реагирование · 6 мин</a>
+        <a href="#hygiene">Гигиена · 4 мин</a>
+        <a href="#contacts">Контакты · 2 мин</a>
+      </nav>
+    </div>
+  </header>
+  <main id="content" class="wrap">
+    <section id="brief" aria-labelledby="brief-title">
+      <div class="sec-head">
+        <h2 id="brief-title">Цели, принципы, ответственность</h2>
+        <span class="mins">около 3 минут</span>
+      </div>
+      <div class="grid3">
+        <article class="panel">
+          <h3>Цели службы</h3>
+          <ul>
+            <li>Защита конфиденциальности, целостности и доступности активов организации.</li>
+            <li>Непрерывность критичных процессов при инциденте.</li>
+            <li>Соблюдение внутренних регламентов и требований к уведомлению.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Базовые принципы</h3>
+          <ul>
+            <li>Доступ только по необходимости и с минимальными привилегиями.</li>
+            <li>Разделение обязанностей на критичных операциях.</li>
+            <li>Фиксация действий: журналы не отключаются и не правятся вручную.</li>
+            <li>Сведения о инцидентах не выносятся за установленные каналы.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Ответственность сотрудника</h3>
+          <ul>
+            <li>Соблюдать Политику ИБ с первого дня допуска.</li>
+            <li>Немедленно сообщать о подозрении на инцидент дежурному.</li>
+            <li>Не исследовать чужие данные вне поставленной задачи.</li>
+            <li>Хранить учётные данные только в утверждённом хранилище.</li>
+          </ul>
+        </article>
+      </div>
+      <a class="btn" id="policy-link" href="[ВНУТРЕННЯЯ_ССЫЛКА_НА_ПОЛИТИКУ_ИБ]">Политика информационной безопасности</a>
+      <p class="note">Ссылка ведёт во внутреннюю систему документооборота. Перед публикацией замените href элемента <span class="ph">#policy-link</span>.</p>
+    </section>
+
+    <section id="response" aria-labelledby="response-title">
+      <div class="sec-head">
+        <h2 id="response-title">Пять этапов реагирования</h2>
+        <span class="mins">около 6 минут</span>
+      </div>
+      <p>Последовательность фиксирована: фиксация, локализация, анализ, устранение, отчётность. Сроки и классы критичности — из <span class="ph">[Регламент реагирования на инциденты, внутренняя ссылка]</span>.</p>
+      <div class="stages">
+        <article class="stage">
+          <span class="num">1</span>
+          <h3>Фиксация</h3>
+          <span class="when">Срок: [немедленно / по классу]</span>
+          <ul>
+            <li>Зафиксировать время, систему, симптомы и источник сообщения.</li>
+            <li>Сохранить доказательства, не изменяя их.</li>
+            <li>Передать дежурному по каналу из раздела контактов.</li>
+          </ul>
+        </article>
+        <article class="stage">
+          <span class="num">2</span>
+          <h3>Локализация</h3>
+          <span class="when">Срок: [по регламенту]</span>
+          <ul>
+            <li>Ограничить распространение: учётка, сегмент, устройство.</li>
+            <li>Не выключать систему, если это уничтожит оперативную память и журналы.</li>
+            <li>Согласовать отключение с дежурным.</li>
+          </ul>
+        </article>
+        <article class="stage">
+          <span class="num">3</span>
+          <h3>Анализ</h3>
+          <span class="when">Срок: [по классу критичности]</span>
+          <ul>
+            <li>Определить вектор, затронутые активы и данные.</li>
+            <li>Присвоить класс критичности по регламенту.</li>
+            <li>Отделить подтверждённое от гипотез.</li>
+          </ul>
+        </article>
+        <article class="stage">
+          <span class="num">4</span>
+          <h3>Устранение</h3>
+          <span class="when">Срок: [по регламенту]</span>
+          <ul>
+            <li>Убрать причину и восстановить штатный режим.</li>
+            <li>Сменить скомпрометированные секреты.</li>
+            <li>Проверить, что журналирование восстановлено.</li>
+          </ul>
+        </article>
+        <article class="stage report">
+          <span class="num">5</span>
+          <h3>Отчётность</h3>
+          <span class="when">Срок: [по регламенту и закону]</span>
+          <ul>
+            <li>Хронология, влияние, меры и остаточный риск.</li>
+            <li>Уведомление регулятора и субъектов данных: <span class="ph">[требования законодательства, срок и основание]</span>.</li>
+            <li>Закрытие карточки инцидента у руководителя службы.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="alert" role="note">
+        <strong>Вымогательство и утечка.</strong>
+        Не вступайте в переговоры и не производите оплату. Не подтверждайте злоумышленнику факт компрометации. Сразу уведомьте дежурного специалиста ИБ и руководителя службы. Решение о коммуникации принимает только служба ИБ.
+      </div>
+    </section>
+
+    <section id="hygiene" aria-labelledby="hygiene-title">
+      <div class="sec-head">
+        <h2 id="hygiene-title">Чек-лист гигиены ИБ</h2>
+        <span class="mins">около 4 минут</span>
+      </div>
+      <div class="progress-row">
+        <p id="count" aria-live="polite">0 из 6</p>
+        <span class="note">Первая рабочая неделя. Отметки не сохраняются.</span>
+      </div>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" aria-labelledby="count">
+        <span id="fill"></span>
+      </div>
+      <ul class="checks">
+        <li>
+          <label><input type="checkbox"> <span>Настройка MFA<span class="note-inline"><small>Второй фактор включён на всех рабочих учётных записях, коды восстановления сданы по регламенту.</small></span></span></label>
+        </li>
+        <li>
+          <label><input type="checkbox"> <span>Проверка прав доступа<small>Роли соответствуют должности. Лишние права заявлены на отзыв.</small></span></label>
+        </li>
+        <li>
+          <label><input type="checkbox"> <span>Замена начальных паролей<small>Временные пароли сменены, пароли не повторяют прежние и не хранятся в переписке.</small></span></label>
+        </li>
+        <li>
+          <label><input type="checkbox"> <span>Подтверждение работы журналирования<small>События входа и администрирования видны в штатном журнале.</small></span></label>
+        </li>
+        <li>
+          <label><input type="checkbox"> <span>Обновление рабочей станции<small>Установлены утверждённые обновления ОС и средств защиты.</small></span></label>
+        </li>
+        <li>
+          <label><input type="checkbox"> <span>Тест на распознавание фишинга<small>Пройден внешний тест, назначенный службой ИБ. Результат наставнику.</small></span></label>
+        </li>
+      </ul>
+      <p class="done" id="done">Все шесть пунктов отмечены. Сообщите наставнику, что чек-лист первой недели выполнен.</p>
+    </section>
+
+    <section id="contacts" aria-labelledby="contacts-title">
+      <div class="sec-head">
+        <h2 id="contacts-title">Контакты службы и наставника</h2>
+        <span class="mins">около 2 минут</span>
+      </div>
+      <p>Только роли и должностные адреса. Персональные телефоны и личная почта не используются.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Канал</th>
+              <th scope="col">Реквизиты</th>
+              <th scope="col">Когда использовать</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Корпоративный e-mail службы ИБ</td>
+              <td>[должностной адрес службы ИБ]</td>
+              <td>Несрочные вопросы, передача материалов по уже открытому инциденту.</td>
+            </tr>
+            <tr>
+              <td>HelpDesk ИБ</td>
+              <td>[внутренний телефон]</td>
+              <td>Доступы, сбои средств защиты, заявки в рабочее время.</td>
+            </tr>
+            <tr>
+              <td>Дежурный специалист ИБ</td>
+              <td>[внутренний номер дежурной смены]</td>
+              <td>Подозрение на инцидент, вымогательство, утечка. Круглосуточно.</td>
+            </tr>
+            <tr>
+              <td>Наставник</td>
+              <td>[должностной адрес наставника]</td>
+              <td>Разбор инструктажа и проверка понимания в первую неделю.</td>
+            </tr>
+            <tr>
+              <td>Руководитель службы ИБ</td>
+              <td>[должностной адрес руководителя]</td>
+              <td>Эскалация, если дежурный недоступен или затронут критичный процесс.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap">
+    <p>Версия [номер версии]. Актуализация: [должность ответственного]. Владелец контента: [должность владельца службы ИБ]. Страница только для внутреннего контура, после входа по корпоративной учётной записи.</p>
+  </footer>
+  <script>
+    (function () {
+      var boxes = document.querySelectorAll(".checks input");
+      var count = document.getElementById("count");
+      var fill = document.getElementById("fill");
+      var bar = document.querySelector("[role=progressbar]");
+      var done = document.getElementById("done");
+      function sync() {
+        var n = 0;
+        for (var i = 0; i < boxes.length; i++) if (boxes[i].checked) n++;
+        count.textContent = n + " из 6";
+        fill.style.width = (n / 6 * 100) + "%";
+        bar.setAttribute("aria-valuenow", String(n));
+        done.className = n === 6 ? "done show" : "done";
+        done.hidden = n !== 6;
+      }
+      for (var i = 0; i < boxes.length; i++) boxes[i].addEventListener("change", sync);
+      sync();
+    })();
+  </script>
+</body>
+</html>
